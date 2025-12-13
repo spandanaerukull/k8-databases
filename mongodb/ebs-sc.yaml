@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: storageclass
+metadata:
+  name: roboshop-ebs
+reclaimpolicy: Retain
+provisioner: ebs.csi.aws.com
+volumeBindingMode: WaitforFirstConsumer 
+
+# if anyone want disk in roboshop team they can use this storage class by mentioning the storage class name in their pvc files
