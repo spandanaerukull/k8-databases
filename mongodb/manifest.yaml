@@ -1,4 +1,5 @@
-
+# this manifest creates a headless service and a StatefulSet for MongoDB in the 'roboshop' namespace.
+# The headless service allows stable network identities for the MongoDB pods, while the StatefulSet manages the deployment and scaling of the MongoDB instances with persistent storage.
 ---
 apiVersion: v1
 kind: Service
@@ -19,11 +20,13 @@ spec:
   - protocol: TCP
     port: 27017 # service port
     targetPort: 27017 # container port
+    # Headless service for MongoDB StatefulSet to provide stable network identities
+
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: mongodb
+  name: mongodb # normal service for mongodb#
   namespace: roboshop
   labels:
     component: mongodb
@@ -38,6 +41,7 @@ spec:
   - protocol: TCP
     port: 27017 # service port
     targetPort: 27017 # container port
+    # Standard service for MongoDB StatefulSet to enable access to the database pods
 ---
 apiVersion: apps/v1
 kind: StatefulSet
@@ -65,7 +69,7 @@ spec:
     spec:
       containers:
       - name: mongodb
-        image: joindevops/mongodb:v1
+        image: spandanaerukulla/mongodb:v1
         volumeMounts:
         - name: mongodb-data
           mountPath: /data/db
@@ -79,5 +83,9 @@ spec:
       resources:
         requests:
           storage: 2Gi
+
+      # VolumeClaimTemplates creates a PersistentVolumeClaim for each pod in the StatefulSet to provide persistent storage for MongoDB data
+      # Each pod will have its own PVC named mongodb-data-<pod-index>
+      # This ensures data persistence across pod restarts and rescheduling
     
 
