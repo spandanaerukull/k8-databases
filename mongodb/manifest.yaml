@@ -70,11 +70,11 @@ spec:
       containers:
       - name: mongodb
         image: spandanaerukulla/mongodb:v1
-        volumeMounts:
+        volumeMounts: # mounting the volume to the container
         - name: mongodb-data
-          mountPath: /data/db
+          mountPath: /data/db # mount path inside the container where mongodb stores its data
   # This is nothing but PVC, you can directly create here
-  volumeClaimTemplates:
+  volumeClaimTemplates: # this is used to create PVCs for each pod in statefulset
   - metadata:
       name: mongodb-data
     spec:
