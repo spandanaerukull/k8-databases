@@ -40,8 +40,8 @@ spec:
       containers:
       - name: catalogue
         image: spandanaerukulla/catalogue:v1
-        resources:
-          requests:
+        resources:  # Resource requests and limits for the container
+          requests:  # Minimum resources required
             cpu: "50m"
             memory: "128Mi"
           limits:
