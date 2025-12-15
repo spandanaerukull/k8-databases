@@ -50,6 +50,8 @@ spec:
         envFrom:
         - configMapRef:
             name: catalogue
+            # Reference to the ConfigMap named 'catalogue'
+            # This allows the Pod to use environment variables defined in the ConfigMap
 ---
 apiVersion: v1
 kind: Service
@@ -69,6 +71,8 @@ spec:
   - protocol: TCP
     port: 8080 # service port
     targetPort: 8080 # container port
+    # here the service is used to expose the catalogue application running on port 8080 within the cluster.
+    # The targetPort is the port on the Pod that the Service will forward traffic to.
 ---
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
