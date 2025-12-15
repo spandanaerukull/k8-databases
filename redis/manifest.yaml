@@ -43,7 +43,7 @@ spec:
     # Standard service for Redis StatefulSet to enable access to the database pods
 ---
 apiVersion: apps/v1
-kind: StatefulSet
+kind: StatefulSet # StatefulSet for Redis used for databases
 metadata:
   name: redis
   namespace: roboshop
@@ -59,7 +59,7 @@ spec:
       tier: database # has to match .spec.template.metadata.labels
   serviceName: "redis-headless" # this should be headless service
   replicas: 2 # by default is 1
-  template:
+  template: # pod template
     metadata:
       labels:
         component: redis
@@ -71,7 +71,7 @@ spec:
         image: redis:7.0
         volumeMounts:
         - name: redis-data
-          mountPath: /data
+          mountPath: /data # Mounting the volume to the container
   # This is nothing but PVC, you can directly create here
   volumeClaimTemplates:
   - metadata:
