@@ -7,3 +7,4 @@ provisioner: ebs.csi.aws.com
 volumeBindingMode: WaitForFirstConsumer 
 
 # if anyone want disk in roboshop team they can use this storage class by mentioning the storage class name in their pvc files
+# this storage class will provision ebs volumes dynamically when pvc is created with this storage class name

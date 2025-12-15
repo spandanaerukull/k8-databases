@@ -87,5 +87,9 @@ spec:
       # VolumeClaimTemplates creates a PersistentVolumeClaim for each pod in the StatefulSet to provide persistent storage for MongoDB data
       # Each pod will have its own PVC named mongodb-data-<pod-index>
       # This ensures data persistence across pod restarts and rescheduling
+
+# This manifest sets up a MongoDB StatefulSet with 3 replicas, each having its own persistent storage using PVCs created from volumeClaimTemplates
+# The headless service allows each MongoDB pod to have a stable network identity, which is essential for stateful applications like databases
+# normal service is created to allow applications to connect to the MongoDB pods easilysy
     
 
