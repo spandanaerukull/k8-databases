@@ -68,7 +68,7 @@ spec:
     spec:
       containers:
       - name: redis
-        image: redis:7.0
+        image: redis:7.0 # Using the official Redis image version 7.0 (not the docker hub link)
         volumeMounts:
         - name: redis-data
           mountPath: /data # Mounting the volume to the container
