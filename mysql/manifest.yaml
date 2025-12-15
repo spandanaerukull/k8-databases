@@ -79,7 +79,7 @@ spec:
     spec:
       containers:
       - name: mysql
-        image:  spandanaerukulla/my-sql:v1
+        image:  spandanaerukulla/my-sql 
 
         envFrom: # environment variables from secret
         - secretRef: # reference to the secret containing MySQL root password
