@@ -8,3 +8,17 @@ volumeBindingMode: WaitForFirstConsumer
 
 # if anyone want disk in roboshop team they can use this storage class by mentioning the storage class name in their pvc files
 # this storage class will provision ebs volumes dynamically when pvc is created with this storage class name
+
+# ebs volume is block storage we can use it for databases
+# we can create multiple storage classes in kubernetes for different types of storage like ebs, efs, gcp persistent disk, azure disk, etc.
+# we can create storage class for different performance levels like standard, premium, etc.
+# we can create storage class for different availability zones like us-east-1a, us-east-1b, etc.
+# we can create storage class for different volume types like gp2, io1, st1, sc1, etc.
+# we can create storage class for different reclaim policies like Retain, Delete, Recycle
+# we can create storage class for different volume binding modes like Immediate, WaitForFirstConsumer
+# we can create storage class for different provisioners like ebs.csi.aws.com, efs.csi.aws.com, pd.csi.storage.gke.io, disk.csi.azure.com, etc.
+# we can create storage class for different parameters like type, iops, throughput, etc.
+# we can create storage class for different mount options like nfsvers, rsize, wsize, etc.
+# we can create storage class for different volume attributes like encrypted, kmsKeyId, etc.
+# we can create storage class for different volume labels like project, environment, etc.
+# we can create storage class for different volume annotations like volume.beta.kubernetes.io/storage-class, etc.
