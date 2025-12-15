@@ -22,3 +22,4 @@ volumeBindingMode: WaitForFirstConsumer
 # we can create storage class for different volume attributes like encrypted, kmsKeyId, etc.
 # we can create storage class for different volume labels like project, environment, etc.
 # we can create storage class for different volume annotations like volume.beta.kubernetes.io/storage-class, etc.
+

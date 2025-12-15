@@ -1,0 +1,86 @@
+# This YAML file sets up a Redis StatefulSet in the 'roboshop' namespace with persistent storage using EBS volumes.
+# It includes a headless service for pod discovery and a standard service for accessing Redis.
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis-headless
+  namespace: roboshop
+  labels:
+    component: redis
+    project: roboshop
+    tier: database
+spec:
+  clusterIP: None
+  selector:
+    component: redis
+    project: roboshop
+    tier: database
+  ports:
+  - protocol: TCP
+    port: 6379 # service port
+    targetPort: 6379 # container port
+    # Headless service for Redis StatefulSet to provide stable network identities
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis
+  namespace: roboshop
+  labels:
+    component: redis
+    project: roboshop
+    tier: database
+spec:
+  selector:
+    component: redis
+    project: roboshop
+    tier: database
+  ports:
+  - protocol: TCP
+    port: 6379 # service port
+    targetPort: 6379 # container port
+    # Standard service for Redis StatefulSet to enable access to the database pods
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: redis
+  namespace: roboshop
+  labels:
+    component: redis
+    project: roboshop
+    tier: database
+spec:
+  selector:
+    matchLabels:
+      component: redis
+      project: roboshop
+      tier: database # has to match .spec.template.metadata.labels
+  serviceName: "redis-headless" # this should be headless service
+  replicas: 2 # by default is 1
+  template:
+    metadata:
+      labels:
+        component: redis
+        project: roboshop
+        tier: database
+    spec:
+      containers:
+      - name: redis
+        image: redis:7.0
+        volumeMounts:
+        - name: redis-data
+          mountPath: /data
+  # This is nothing but PVC, you can directly create here
+  volumeClaimTemplates:
+  - metadata:
+      name: redis-data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: "roboshop-ebs"
+      resources:
+        requests:
+          storage: 2Gi
+
+# if anyone want redis disk in roboshop team they can use this storage class by mentioning the storage class name in their pvc files

@@ -44,7 +44,7 @@ spec:
     # Standard service for MongoDB StatefulSet to enable access to the database pods
 ---
 apiVersion: apps/v1
-kind: StatefulSet
+kind: StatefulSet # StatefulSet for MongoDB used for databases
 metadata:
   name: mongodb
   namespace: roboshop
@@ -60,7 +60,7 @@ spec:
       tier: database # has to match .spec.template.metadata.labels
   serviceName: "mongodb-headless" # this should be headless service
   replicas: 3 # by default is 1
-  template:
+  template: # pod template
     metadata:
       labels:
         component: mongodb
