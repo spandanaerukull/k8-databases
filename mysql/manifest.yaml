@@ -70,7 +70,7 @@ spec:
       tier: database # has to match .spec.template.metadata.labels
   serviceName: "mysql-headless" # this should be headless service
   replicas: 2 # by default is 1
-  template:
+  template: # pod template
     metadata:
       labels:
         component: mysql
@@ -80,8 +80,8 @@ spec:
       containers:
       - name: mysql
         image: spandanaerukulla/mysql:v1
-        envFrom:
-        - secretRef:
+        envFrom: # environment variables from secret
+        - secretRef: # reference to the secret containing MySQL root password
             name: mysql
         volumeMounts:
         - name: mysql-data
